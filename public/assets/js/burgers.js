@@ -73,7 +73,7 @@ $(function () {
       var newBurger = {
         burger_name: $("#name1").val().trim(),
         description: $("#description1").val().trim(),
-        CustomerId: $("#CustomerId1").val().trim()
+        CustomerId: $("#CustomerId1").val()
       };
 
       $.ajax("/api/burgers/update/" + id, {
