@@ -68,6 +68,8 @@ $(function () {
     var id = $("#id1").val().trim();
 
     if (!$("#name1").val().trim() || !$("#description1").val().trim() || !$("#CustomerId1").val()) {
+      $("#errorTitle").text("Name and description are required.");
+      $("#errorBody").text("Please enter the burger name and description.");
       $("#results-modal").modal();
     } else {
       var newBurger = {
@@ -90,7 +92,8 @@ $(function () {
 
   $(".create-form-customer").on("submit", function (event) {
     event.preventDefault();
-
+    $("#errorTitle").text("Customer Name is required.");
+    $("#errorBody").text("Please enter the name.");
     if (!$("#name2").val().trim()) {
       $("#results-modal").modal();
     } else {
@@ -112,6 +115,8 @@ $(function () {
   $(".create-form").on("submit", function (event) {
     event.preventDefault();
     if (!$("#name").val().trim() || !$("#description").val().trim()) {
+      $("#errorTitle").text("Name and description are required.");
+      $("#errorBody").text("Please enter the burger name and description.");
       $("#results-modal").modal();
     } else {
       var newBurger = {
