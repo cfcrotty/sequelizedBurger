@@ -4,7 +4,7 @@ const path = require("path");
 const db = require("../models");
 
 function removeSpecials(str) {
-    return str.replace(/[^\-.!,\w\s]/gi, '');
+    return str.replace(/[^\-.!,&$%?\w\s]/gi, '');
 }
 
 module.exports = (app) => {
