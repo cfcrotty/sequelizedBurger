@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   Customer
     .findOrCreate({ where: { id: 1 }, defaults: { name: 'Guest' } })
     .spread(function (user, created) {
-      console.log(user.get({
-        plain: true
-      }));
+      // console.log(user.get({
+      //   plain: true
+      // }));
       //console.log(created)
     })
 
