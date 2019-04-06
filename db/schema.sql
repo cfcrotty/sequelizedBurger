@@ -1,5 +1,5 @@
 ### Schema
-
+USE `qvnztap1fihxvlnq`;
 CREATE DATABASE burgers_db;
 USE burgers_db;
 
@@ -13,7 +13,7 @@ CREATE TABLE burgers
 	rating INT(3) DEFAULT 0,
     createdAt DATETIME NOT NULL,
     updatedAt DATETIME NOT NULL,
-    CustomerId DATETIME NOT NULL,
+    CustomerId INT NOT NULL,
 	PRIMARY KEY (id)
 );
 
