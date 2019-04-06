@@ -21,6 +21,19 @@ $(function () {
     );
   });
 
+  $("#CustomerId1").on("change", function (event) {
+    var id = $(this).val();
+
+    // Send the PUT request.
+    $.ajax("/api/customers/" + id, {
+      type: "GET"
+    }).then(
+      // function () {
+      //   location.reload();
+      // }
+    );
+  });
+
   $(".favorite").on("click", function (event) {
     var id = $(this).data("id");
     var fav = $(this).data("favorite");
@@ -42,22 +55,25 @@ $(function () {
     var id = $(this).data("id");
     var name = $(this).data("name");
     var description = $(this).data("description");
+    var customerId = ($(this).data('customerid'));
 
     $("#id1").val(id);
     $("#name1").val(name);
     $("#description1").val(description);
+    $("#CustomerId1").val(customerId);
   });
 
   $(".update-form").on("submit", function (event) {
     event.preventDefault();
     var id = $("#id1").val().trim();
 
-    if (!$("#name1").val().trim() || !$("#description1").val().trim()) {
+    if (!$("#name1").val().trim() || !$("#description1").val().trim() || !$("#CustomerId1").val()) {
       $("#results-modal").modal();
     } else {
       var newBurger = {
         burger_name: $("#name1").val().trim(),
-        description: $("#description1").val().trim()
+        description: $("#description1").val().trim(),
+        CustomerId: $("#CustomerId1").val().trim()
       };
 
       $.ajax("/api/burgers/update/" + id, {
@@ -72,6 +88,27 @@ $(function () {
     }
   });
 
+  $(".create-form-customer").on("submit", function (event) {
+    event.preventDefault();
+
+    if (!$("#name2").val().trim()) {
+      $("#results-modal").modal();
+    } else {
+      var newCustomer = {
+        name: $("#name2").val().trim()
+      };
+
+      $.ajax("/api/customer/add/", {
+        type: "POST",
+        data: newCustomer
+      }).then(
+        function () {
+          location.reload();
+        }
+      );
+    }
+  });
+
   $(".create-form").on("submit", function (event) {
     event.preventDefault();
     if (!$("#name").val().trim() || !$("#description").val().trim()) {
@@ -79,7 +116,8 @@ $(function () {
     } else {
       var newBurger = {
         burger_name: $("#name").val().trim(),
-        description: $("#description").val().trim()
+        description: $("#description").val().trim(),
+        CustomerId: $("#CustomerId").val().trim()
       };
 
       $.ajax("/api/burgers", {

@@ -13,6 +13,14 @@
           <div class="col-md-12">
             <form class="create-form">
               <div class="form-group">
+                <label for="name">Customer Name:</label>
+                <select id="CustomerId" name="CustomerId">
+                  {{#each customers}}
+                  <option value="{{id}}">{{name}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <div class="form-group">
                 <label for="name">Burger Name:</label>
                 <input style="width:100%;" type="text" id="name" name="name">
               </div>
@@ -20,7 +28,27 @@
                 <label for="desc">Burger Description:</label>
                 <textarea style="width:100%;" rows="5" id="description" name="description"></textarea>
               </div>
-              <p style="color:red;">* Name and Description only accepts letters, numbers, and some special characters (!,.-).</p>
+              <p style="color:red;">* Name and Description only accepts letters, numbers, and some special characters
+                (!,.-).</p>
+              <button type="submit" class="btn btn-primary primary">Add</button>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <hr>
+            <h2>Add a Customer</h2>
+            <hr>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <form class="create-form-customer">
+              <div class="form-group">
+                <label for="name">Customer Name:</label>
+                <input style="width:100%;" type="text" id="name2" name="name2">
+              </div>
+              <p style="color:red;">* Name only accepts letters, numbers, and some special characters (!,.-).</p>
               <button type="submit" class="btn btn-primary primary">Add</button>
             </form>
           </div>
@@ -31,7 +59,8 @@
     <div class="row">
       <div class="col-md-12"></div>
     </div>
-  </div>
+    </div>
+
 
   <div id="updateForm" class="col-md-3" style="display:none;">
     <div class="row indexSection">
@@ -48,6 +77,14 @@
             <form class="update-form">
               <input style="display:none;" type="text" id="id1" name="id1">
               <div class="form-group">
+                <label for="name">Customer Name:</label>
+                <select id="CustomerId1" name="CustomerId1">
+                  {{#each customers}}
+                  <option value="{{id}}">{{name}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <div class="form-group">
                 <label for="name1">Burger Name:</label>
                 <input style="width:100%;" type="text" id="name1" name="name1">
               </div>
@@ -55,7 +92,8 @@
                 <label for="desc">Burger Description:</label>
                 <textarea style="width:100%;" rows="5" id="description1" name="description1"></textarea>
               </div>
-              <p style="color:red;">* Name and Description only accepts letters, numbers, and some special characters (!,.-).</p>
+              <p style="color:red;">* Name and Description only accepts letters, numbers, and some special characters
+                (!,.-).</p>
               <button type="submit" class="btn btn-primary primary">Update</button>
             </form>
           </div>
@@ -73,6 +111,19 @@
             <hr>
           </div>
         </div>
+        {{!-- <div class="row">
+          <div class="col-md-12 text-center">
+            <h4>Customer Name:
+              <select id="CustomerId1" name="CustomerId1">
+                <option value="">Select a customer</option>
+                {{#each customers}}
+                <option value="{{id}}">{{name}}</option>
+                {{/each}}
+              </select>
+            </h4>
+            <hr>
+          </div>
+        </div> --}}
         <div class="row">
           <div class="col-md-6">
             <div class="row text-center">
@@ -104,15 +155,15 @@
             </div>
             <div class="row">
               <div class="col-md-12">
-                  {{#each burgers}}
-                  {{#if devoured}}
-                  <div class="card">
-                    <div class="card-header">
-                      {{> burgers/burger-block}}
-                    </div>
+                {{#each burgers}}
+                {{#if devoured}}
+                <div class="card">
+                  <div class="card-header">
+                    {{> burgers/burger-block}}
                   </div>
-                  {{/if}}
-                  {{/each}}
+                </div>
+                {{/if}}
+                {{/each}}
               </div>
             </div>
           </div>

@@ -7,21 +7,56 @@ function removeSpecials(str) {
   return str.replace(/[^\-.!,\w\s]/gi, '');
 }
 
+//createDefaultCustomer();
+
+function createDefaultCustomer() {
+  db.Customer
+    .findOrCreate({ where: { id: 1 }, defaults: { name: 'Guest' } })
+    .spread(function (user, created) {
+      console.log(user.get({
+        plain: true
+      }));
+      //console.log(created)
+    })
+}
+
 module.exports = (app) => {
   app.get("/", (req, res) => {
-    db.burgers.findAll({
-    }).then((dbPost) => {
-      const hbsObject = {
-        burgers: dbPost
-      };
-      res.render("index", hbsObject);
+    db.burgers.findAll({include: [db.Customer],
+      order: [
+        ['burger_name', 'ASC']
+    ],
+    }).then((dbBurger) => {
+        db.Customer.findAll({
+        }).then((dbCustomer) => {
+          const hbsObject = {
+            burgers: dbBurger,
+            customers: dbCustomer
+          };
+          res.render("index", hbsObject);
+        });
     });
   });
+
+  // app.get("/burgers/customer/", (req, res) => {
+  //   db.burgers.findAll({
+  //     include: [db.Customer],
+  //     where: {
+  //       customerId: req.body.customerId
+  //     }
+  //   }).then((dbPost) => {
+  //     const hbsObject = {
+  //       burgers: dbPost
+  //     };
+  //     res.render("index", hbsObject);
+  //   });
+  // });
 
   app.post("/api/burgers", (req, res) => {
     db.burgers.create({
       burger_name: removeSpecials(req.body.burger_name),
-      description: removeSpecials(req.body.description)
+      description: removeSpecials(req.body.description),
+      CustomerId: removeSpecials(req.body.CustomerId),
     }).then((result) => {
       // We have access to the new todo as an argument inside of the callback function
       res.json({ id: result.insertId });
@@ -30,7 +65,7 @@ module.exports = (app) => {
 
   app.put("/api/burgers/update/:id", (req, res) => {
     db.burgers.update(
-      { 
+      {
         burger_name: removeSpecials(req.body.burger_name),
         description: removeSpecials(req.body.description)
       },
