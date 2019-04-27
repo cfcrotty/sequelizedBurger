@@ -12,7 +12,6 @@ module.exports = (app) => {
         db.Customer.create({
           name: removeSpecials(req.body.name)
         }).then((result) => {
-          // We have access to the new todo as an argument inside of the callback function
           res.json({ id: result.insertId });
         });
       });

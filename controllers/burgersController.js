@@ -7,16 +7,10 @@ function removeSpecials(str) {
   return str.replace(/[^\-.!,&$%?\w\s]/gi, '');
 }
 
-//createDefaultCustomer();
-
 function createDefaultCustomer() {
   db.Customer
     .findOrCreate({ where: { id: 1 }, defaults: { name: 'Guest' } })
     .spread(function (user, created) {
-      // console.log(user.get({
-      //   plain: true
-      // }));
-      //console.log(created)
     })
 }
 
@@ -37,20 +31,6 @@ module.exports = (app) => {
         });
     });
   });
-
-  // app.get("/burgers/customer/", (req, res) => {
-  //   db.burgers.findAll({
-  //     include: [db.Customer],
-  //     where: {
-  //       customerId: req.body.customerId
-  //     }
-  //   }).then((dbPost) => {
-  //     const hbsObject = {
-  //       burgers: dbPost
-  //     };
-  //     res.render("index", hbsObject);
-  //   });
-  // });
 
   app.post("/api/burgers", (req, res) => {
     db.burgers.create({
